@@ -10,6 +10,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+// title controller
+  final _titleController = TextEditingController();
+
+// description controller
+  final _descriptionController = TextEditingController();
+
   // list of todo
   List toDoList = [
     ['Work', 'Create a new app', false],
@@ -21,6 +27,17 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       toDoList[index][2] = !toDoList[index][2];
     });
+  }
+
+  // save task
+
+  void saveTask() {
+    setState(() {
+      toDoList.add([_titleController.text, _descriptionController.text, false]);
+      _titleController.clear();
+      _descriptionController.clear();
+    });
+    Navigator.of(context).pop();
   }
 
   @override
@@ -37,7 +54,11 @@ class _HomePageState extends State<HomePage> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const NewTaskPage(),
+              builder: (context) => NewTaskPage(
+                titleController: _titleController,
+                descriptionController: _descriptionController,
+                onSave: saveTask,
+              ),
             ),
           );
         },
