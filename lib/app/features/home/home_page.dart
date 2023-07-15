@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:what_to_do/app/base/utils/todo_list.dart';
+import 'package:what_to_do/app/features/tasks/new_task_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -29,6 +30,17 @@ class _HomePageState extends State<HomePage> {
         title: const Center(
           child: Text('What to do?'),
         ),
+      ),
+      floatingActionButton: ElevatedButton(
+        child: const Text('Add new task'),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const NewTaskPage(),
+            ),
+          );
+        },
       ),
       body: ListView.builder(
         itemBuilder: (context, index) {
