@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:what_to_do/app/base/constants/app_colors.dart';
 import 'package:what_to_do/app/base/constants/strings.dart';
 import 'package:what_to_do/app/base/utils/todo_list.dart';
 import 'package:what_to_do/app/base/widgets/empty_list.dart';
+import 'package:what_to_do/app/base/widgets/main_button.dart';
 import 'package:what_to_do/app/data/local/tasks_local_datasource.dart';
 import 'package:what_to_do/app/features/tasks/new_task_page.dart';
 
@@ -60,26 +62,33 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.green,
       appBar: AppBar(
         title: const Center(
-          child: Text(Strings.APP_NAME),
+          child: Text(
+            Strings.APP_NAME,
+            style: TextStyle(
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w600,
+                fontSize: 22,
+                color: AppColors.darkGreen),
+          ),
         ),
       ),
-      floatingActionButton: ElevatedButton(
-        child: const Text(Strings.ADD_TASK),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => NewTaskPage(
-                titleController: _titleController,
-                descriptionController: _descriptionController,
-                onSave: saveTask,
+      floatingActionButton: MainButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => NewTaskPage(
+                  titleController: _titleController,
+                  descriptionController: _descriptionController,
+                  onSave: saveTask,
+                ),
               ),
-            ),
-          );
-        },
-      ),
+            );
+          },
+          text: Strings.ADD_TASK),
       body: ds.toDoList.isEmpty
           ? const EmptyList()
           : ListView.builder(
