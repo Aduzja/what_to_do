@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:what_to_do/app/base/utils/todo_list.dart';
+import 'package:what_to_do/app/base/widgets/empty_list.dart';
+import 'package:what_to_do/app/data/local/tasks_local_datasource.dart';
 import 'package:what_to_do/app/features/tasks/new_task_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,29 +13,35 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+// hive box
+  final toDoBox = Hive.box('todoBox');
+  TasksLocalDatasource ds = TasksLocalDatasource();
+
+  @override
+  void initState() {
+    ds.loadData();
+    super.initState();
+  }
+
 // title controller
   final _titleController = TextEditingController();
 
 // description controller
   final _descriptionController = TextEditingController();
 
-  // list of todo
-  List toDoList = [
-    ['Work', 'Create a new app', false],
-    ['Shopping', 'Buy some food', false]
-  ];
-
   // chceckbox onChanged
   void checkboxChanged(bool? value, int index) {
     setState(() {
-      toDoList[index][2] = !toDoList[index][2];
+      ds.toDoList[index][2] = !ds.toDoList[index][2];
     });
+    ds.updateData();
   }
 
   // save task
   void saveTask() {
     setState(() {
-      toDoList.add([_titleController.text, _descriptionController.text, false]);
+      ds.toDoList
+          .add([_titleController.text, _descriptionController.text, false]);
       _titleController.clear();
       _descriptionController.clear();
     });
@@ -42,8 +51,9 @@ class _HomePageState extends State<HomePage> {
   // delete task
   void deleteTask(int index) {
     setState(() {
-      toDoList.removeAt(index);
+      ds.toDoList.removeAt(index);
     });
+    ds.updateData();
   }
 
   @override
@@ -69,18 +79,20 @@ class _HomePageState extends State<HomePage> {
           );
         },
       ),
-      body: ListView.builder(
-        itemBuilder: (context, index) {
-          return ToDoList(
-            taskTitle: toDoList[index][0],
-            taskDescription: toDoList[index][1],
-            taskCompleted: toDoList[index][2],
-            onChanged: (value) => checkboxChanged(value, index),
-            deleteTask: (context) => deleteTask(index),
-          );
-        },
-        itemCount: toDoList.length,
-      ),
+      body: ds.toDoList.isEmpty
+          ? const EmptyList()
+          : ListView.builder(
+              itemBuilder: (context, index) {
+                return ToDoList(
+                  taskTitle: ds.toDoList[index][0],
+                  taskDescription: ds.toDoList[index][1],
+                  taskCompleted: ds.toDoList[index][2],
+                  onChanged: (value) => checkboxChanged(value, index),
+                  deleteTask: (context) => deleteTask(index),
+                );
+              },
+              itemCount: ds.toDoList.length,
+            ),
     );
   }
 }
