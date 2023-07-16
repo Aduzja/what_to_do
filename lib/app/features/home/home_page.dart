@@ -30,7 +30,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   // save task
-
   void saveTask() {
     setState(() {
       toDoList.add([_titleController.text, _descriptionController.text, false]);
@@ -38,6 +37,13 @@ class _HomePageState extends State<HomePage> {
       _descriptionController.clear();
     });
     Navigator.of(context).pop();
+  }
+
+  // delete task
+  void deleteTask(int index) {
+    setState(() {
+      toDoList.removeAt(index);
+    });
   }
 
   @override
@@ -70,6 +76,7 @@ class _HomePageState extends State<HomePage> {
             taskDescription: toDoList[index][1],
             taskCompleted: toDoList[index][2],
             onChanged: (value) => checkboxChanged(value, index),
+            deleteTask: (context) => deleteTask(index),
           );
         },
         itemCount: toDoList.length,
