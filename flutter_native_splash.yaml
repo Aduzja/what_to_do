@@ -1,0 +1,6 @@
+flutter_native_splash:
+  color: "#FAB79F"
+  image: assets/images/todo-01.png
+  android: true
+  ios: true
+  resize_mode: cover
