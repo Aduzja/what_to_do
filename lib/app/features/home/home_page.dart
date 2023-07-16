@@ -17,7 +17,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 // hive box
-  final toDoBox = Hive.box('todoBox');
+  final toDoBox = Hive.box('toDoBox');
   TasksLocalDatasource ds = TasksLocalDatasource();
 
   @override
