@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:what_to_do/app/base/constants/strings.dart';
 
 class EmptyList extends StatelessWidget {
   const EmptyList({super.key});
@@ -7,7 +8,7 @@ class EmptyList extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Center(
       child: Text(
-        'Your task list is empty,\nadd a new task',
+        Strings.EMPTY_LIST,
         textAlign: TextAlign.center,
       ),
     );
