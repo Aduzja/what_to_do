@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:what_to_do/app/base/constants/strings.dart';
 import 'package:what_to_do/app/base/utils/todo_list.dart';
 import 'package:what_to_do/app/base/widgets/empty_list.dart';
 import 'package:what_to_do/app/data/local/tasks_local_datasource.dart';
@@ -61,11 +62,11 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Center(
-          child: Text('What to do?'),
+          child: Text(Strings.APP_NAME),
         ),
       ),
       floatingActionButton: ElevatedButton(
-        child: const Text('Add new task'),
+        child: const Text(Strings.ADD_TASK),
         onPressed: () {
           Navigator.push(
             context,
