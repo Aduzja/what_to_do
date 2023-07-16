@@ -15,10 +15,10 @@ The project includes the following features:
 
 ## Screenshots
 
-![Home page](assets/images/homepage_empty.png)
-![Add task page](assets/images/add_task.png)
-![Home page with completed task](assets/images/task_completed.png)
-![Home page delete task](assets/images/delete_task.png)
+<img src="assets/images/homepage_empty.png" alt="Home page" width="30%">
+<img src="assets/images/add_task.png" alt="Add task page" width="30%">
+<img src="assets/images/task_completed.png" alt="Home page with completed task" width="30%">
+<img src="assets/images/delete_task.png" alt="Home page delete task" width="30%">
 
 ## Getting Started
 
